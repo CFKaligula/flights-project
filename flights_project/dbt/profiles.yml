@@ -1,0 +1,7 @@
+basic_dbt_project:
+  target: prod
+  outputs:
+    prod:
+      type: duckdb
+      path: ..\..\db.duckdb
+      threads: 4

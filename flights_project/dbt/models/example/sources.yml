@@ -1,0 +1,12 @@
+﻿version: 2
+
+sources:
+  - name: default
+    # database: your_database_name  # Optional, depending on your warehouse
+    schema: main
+    tables:
+      - name: airlines
+      - name: flights
+      - name: destinations
+      - name: aircrafttypes
+
