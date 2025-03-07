@@ -2,7 +2,5 @@
 version: 2
 
 models:
-
-
   - name: full_flights
     description: "all info about flights you need"

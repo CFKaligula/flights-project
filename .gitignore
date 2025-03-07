@@ -3,7 +3,7 @@
 *.egg-info/
 .vscode/settings.json
 .tmp*/
-db.duckdb
+*.duckdb
 build/
 .venv/
 *.html
