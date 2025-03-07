@@ -1,0 +1,6 @@
+﻿test.py
+*.pyc
+*.egg-info/
+.vscode/settings.json
+.tmp*/
+db.duckdb
