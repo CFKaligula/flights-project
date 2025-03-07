@@ -1,9 +1,8 @@
-﻿from dagster import Definitions, load_assets_from_modules
+﻿from dagster import Definitions
 from dagster_duckdb import DuckDBResource
 
-from flights_project.api_assets import assets  # noqa: TID252
 from flights_project.api_assets.assets import all_assets
-from flights_project.api_assets.output_assets import airline_histogram
+from flights_project.api_assets.output_assets import all_output_assets
 from flights_project.dbt.definitions import dbt_models, dbt_resource
 
 # all_api_assets = load_assets_from_modules([assets])
@@ -23,6 +22,6 @@ from flights_project.dbt.definitions import dbt_models, dbt_resource
 # )
 
 defs = Definitions(
-    assets=[dbt_models, airline_histogram] + all_assets,
+    assets=[dbt_models] + all_assets + all_output_assets,
     resources={'duckdb': DuckDBResource(database='db.duckdb'), 'dbt': dbt_resource},
 )
