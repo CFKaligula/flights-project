@@ -1,6 +1,4 @@
-﻿from pathlib import Path
-
-import dagster as dg
+﻿import dagster as dg
 import plotly.express as px
 from dagster_dbt import get_asset_key_for_model
 from dagster_duckdb import DuckDBResource
@@ -17,9 +15,14 @@ def airline_histogram(duckdb: DuckDBResource):
     with duckdb.get_connection() as conn:
         df = conn.sql('SELECT * FROM main.airline_stats').df()
 
+    # merge all airlines with only one flight
+    one_flight_total = len(df[df['n_flights'] == 1])
+    df['other'] = one_flight_total
+    df = df[df['n_flights'] > 1]
+
     # Create a customer histogram and write it out to an HTML file
-    fig = px.histogram(df, x='airlineName')
+    fig = px.pie(df, names='airlineName', values='n_flights', title='Flights per Airline')
     fig.update_layout(bargap=0.2)
-    fig.update_xaxes(categoryorder='total descending')
-    save_chart_path = Path('../.').parent.joinpath('order_count_chart.html')
+
+    save_chart_path = 'order_count_chart.html'
     fig.write_html(save_chart_path, auto_open=False)
