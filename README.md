@@ -1,8 +1,8 @@
 # flights_project
 
-This is a [Dagster](https://dagster.io/) project scaffolded with [`dagster project scaffold`](https://docs.dagster.io/guides/build/projects/creating-a-new-project).
+This is a [Dagster](https://dagster.io/) project which contains data pipelines for the [Schiphol Flights API](https://www.schiphol.nl/en/developer-center/explore-all-schiphols-apis-in-the-developer-center/).
 
-## Getting started
+## Installation
 
 First, install your Dagster code location as a Python package. By using the --editable flag, pip will install your Python package in ["editable mode"](https://pip.pypa.io/en/latest/topics/local-project-installs/#editable-installs) so that as you develop, local code changes will automatically apply.
 
@@ -16,9 +16,7 @@ Then, start the Dagster UI web server:
 dagster dev
 ```
 
-Open http://localhost:3000 with your browser to see the project.
-
-You can start writing assets in `flights_project/assets.py`. The assets are automatically loaded into the Dagster code location as you define them.
+Open <http://localhost:3000> with your browser to see the project.
 
 ## Development
 
@@ -34,14 +32,27 @@ Tests are in the `flights_project_tests` directory and you can run tests using `
 pytest flights_project_tests
 ```
 
-### Schedules and sensors
+## Functionality
 
-If you want to enable Dagster [Schedules](https://docs.dagster.io/guides/automate/schedules/) or [Sensors](https://docs.dagster.io/guides/automate/sensors/) for your jobs, the [Dagster Daemon](https://docs.dagster.io/guides/deploy/execution/dagster-daemon) process must be running. This is done automatically when you run `dagster dev`.
+4 types of data are extracted from the API:
 
-Once your Dagster Daemon is running, you can start turning on schedules and sensors for your jobs.
+* flights
+* destinations
+* airlines
+* aircrafttypes
 
-## Deploy on Dagster+
+These are requested from the API and the responses are processed and stored in a local [DuckDB](https://duckdb.org/) database file.
 
-The easiest way to deploy your Dagster project is to use Dagster+.
+From these raw data tables, a processed view is created using [dbt](https://www.getdbt.com/):
 
-Check out the [Dagster+ documentation](https://docs.dagster.io/dagster-plus/) to learn more.
+* `full_flights`, which contain flight data combined with data from the other 3 tables. For example, instead of the destination code, the entire name of the destination is included.
+
+With the new table, 2 other tables are then created:
+
+* `airline_stats`, which contains the number of flights per airline
+* `aircraft_stats`, which contains the number of flights per aircraft
+
+From these statistics tables we create 2 pie chart visualizations:
+
+* [Airline/Flight Pie Chart](./airline_pie_chart.html)
+* [Aircraft/Flight Pie Chart](./aircrafttype_pie_chart.html)
