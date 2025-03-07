@@ -3,12 +3,12 @@ import requests
 
 app_id = '72923fa7'
 app_key = '253e9832649ed737526bfd030ef45c44'
-MAX_PAGE_NUM = 2
+MAX_PAGE_NUM = 20
 
 
 def request_with_pagination(key):
     """
-    https://developer.schiphol.nl/apis/flight-api/v4/flights?version=latest
+    https://developer.schiphol.nl/apis/flight-api/v4/flights?version=latest#/
 
     """
     got_response = True

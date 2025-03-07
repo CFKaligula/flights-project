@@ -25,3 +25,6 @@ code_location_name = "flights_project"
 
 [tool.setuptools.packages.find]
 exclude=["flights_project_tests"]
+
+[tool.mypy]
+ignore_missing_imports = true

@@ -1,4 +1,4 @@
-﻿from flights_project.api import get_aircrafttypes, get_airlines, get_destinations, get_flights
+﻿from fflights_project.api_assets.apiimport get_aircrafttypes, get_airlines, get_destinations, get_flights
 
 
 def test_airlines():

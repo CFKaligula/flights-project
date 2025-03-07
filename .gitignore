@@ -4,3 +4,5 @@
 .vscode/settings.json
 .tmp*/
 db.duckdb
+build/
+.venv/
