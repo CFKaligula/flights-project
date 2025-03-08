@@ -3,7 +3,7 @@
     airlineName, 
     count() as n_flights
 
-    from {{ ref('full_flights') }} as f
+    from {{ ref('int_full_flights') }} as f
     group by airlineName
 
 )

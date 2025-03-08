@@ -34,6 +34,8 @@ pytest flights_project_tests
 
 ## Functionality
 
+### API
+
 4 types of data are extracted from the API:
 
 * flights
@@ -41,16 +43,22 @@ pytest flights_project_tests
 * airlines
 * aircrafttypes
 
-These are requested from the API and the responses are processed and stored in a local [DuckDB](https://duckdb.org/) database file.
+These are requested from the API stored in a local [DuckDB](https://duckdb.org/) database file. No processing is done as we want to preserve the raw data as raw as possible.
 
-From these raw data tables, a processed view is created using [dbt](https://www.getdbt.com/):
+### Processing
 
-* `full_flights`, which contain flight data combined with data from the other 3 tables. For example, instead of the destination code, the entire name of the destination is included.
+Using [dbt](https://www.getdbt.com/) we will now process the data in 3 steps.
 
-With the new table, 2 other tables are then created:
+First during the staging process we process the raw data. We get 4 new tables: `stg_flights`, `stg_airlines`, ...
+
+Then in an intermediary table the info from the staging tables is combined together. `int_full_flights` is a view which contain flight data combined with data from the other 3 tables. For example, instead of the destination code, the full name of the destination is included.
+
+Finally we have the tables that will actually be used, They make use of the intermediary table to extract useful information. 2 other tables are created:
 
 * `airline_stats`, which contains the number of flights per airline
 * `aircraft_stats`, which contains the number of flights per aircraft
+
+### Visualization
 
 From these statistics tables we create 2 pie chart visualizations:
 

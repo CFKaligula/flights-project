@@ -5,8 +5,8 @@ sources:
     # database: your_database_name  # Optional, depending on your warehouse
     schema: main
     tables:
-      - name: airlines
-      - name: flights
-      - name: destinations
-      - name: aircrafttypes
+      - name: raw_airlines
+      - name: raw_flights
+      - name: raw_destinations
+      - name: raw_aircrafttypes
 

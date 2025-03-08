@@ -10,7 +10,7 @@ def airlines(duckdb: DuckDBResource):
     print(f'got {len(df)} airlines')
 
     with duckdb.get_connection() as conn:
-        conn.execute('CREATE OR REPLACE TABLE airlines AS SELECT * FROM df')
+        conn.execute('CREATE OR REPLACE TABLE raw_airlines AS SELECT * FROM df')
 
 
 @asset(kinds={'duckdb'})
@@ -19,7 +19,7 @@ def destinations(duckdb: DuckDBResource):
     print(f'got {len(df)} destinations')
 
     with duckdb.get_connection() as conn:
-        conn.execute('CREATE OR REPLACE TABLE destinations AS SELECT * FROM df')
+        conn.execute('CREATE OR REPLACE TABLE raw_destinations AS SELECT * FROM df')
 
 
 @asset(kinds={'duckdb'})
@@ -28,7 +28,7 @@ def flights(duckdb: DuckDBResource):
     print(f'got {len(df)} destinations')
 
     with duckdb.get_connection() as conn:
-        conn.execute('CREATE OR REPLACE TABLE flights AS SELECT * FROM df')
+        conn.execute('CREATE OR REPLACE TABLE raw_flights AS SELECT * FROM df')
 
 
 @asset(kinds={'duckdb'})
@@ -37,7 +37,7 @@ def aircrafttypes(duckdb: DuckDBResource):
     print(f'got {len(df)} destinations')
 
     with duckdb.get_connection() as conn:
-        conn.execute('CREATE OR REPLACE TABLE aircrafttypes AS SELECT * FROM df')
+        conn.execute('CREATE OR REPLACE TABLE raw_aircrafttypes AS SELECT * FROM df')
 
 
 all_assets = [airlines, destinations, flights, aircrafttypes]
