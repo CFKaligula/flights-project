@@ -3,6 +3,11 @@ from dagster_duckdb import DuckDBResource
 
 from flights_project.api_assets import api
 
+"""
+This file contains Dagster assets to load in the raw data from the API
+Dataframes are loaded into DuckDB as SQL tables
+"""
+
 
 @asset(kinds={'duckdb'})
 def airlines(duckdb: DuckDBResource):

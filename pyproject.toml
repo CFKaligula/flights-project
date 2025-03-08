@@ -28,3 +28,6 @@ exclude=["flights_project_tests"]
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 200

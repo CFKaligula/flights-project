@@ -1,16 +1,38 @@
-﻿import pandas as pd
+﻿import os
+from typing import Final
+
+import dotenv
+import pandas as pd
 import requests
 
-app_id = '72923fa7'
-app_key = '253e9832649ed737526bfd030ef45c44'
-MAX_PAGE_NUM = 20
+"""
+This script contains functionality to communicate with the Schiphol Flights API.
+The API can be found with the following link:
+https://developer.schiphol.nl/apis/flight-api/v4/flights?version=latest#/
+"""
+
+APP_ID_KEY: Final = 'schiphol_api_app_id'
+APP_KEY_KEY: Final = 'schiphol_api_app_key'
+
+MAX_PAGE_NUM: Final = 20
 
 
-def request_with_pagination(key):
+def get_credentials() -> tuple[str, str]:
     """
-    https://developer.schiphol.nl/apis/flight-api/v4/flights?version=latest#/
-
+    Load the variables in the local .env file into the environment variables
     """
+    dotenv.load_dotenv()
+    return os.environ[APP_ID_KEY], os.environ[APP_KEY_KEY]
+
+
+def request_with_pagination(key: str) -> list[dict]:
+    """
+    Perform an API request to the Schiphol API using the given key and returns the json from the response.
+    As to not overload the API we only load up to MAX_PAGE_NUM requests.
+    Possible keys can be found in the documentation, for example 'flights'.
+    """
+    app_id, app_key = get_credentials()
+
     got_response = True
     responses = []
     page_num = 0
@@ -29,16 +51,10 @@ def request_with_pagination(key):
     return responses
 
 
-def request(key):
-    headers = {'app_id': app_id, 'app_key': app_key, 'ResourceVersion': 'v4'}
-    response = requests.get(
-        f'https://api.schiphol.nl/public-flights/{key}',
-        headers=headers,
-    )
-    return response.json()
-
-
-def get_df_from_api(key: str):
+def get_df_from_api(key: str) -> pd.DataFrame:
+    """
+    Collects the JSONs from the API requests and converts them into a Pandas DataFrame.
+    """
     dicts = request_with_pagination(key)
     print(dicts)
     records = []
