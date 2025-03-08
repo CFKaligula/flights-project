@@ -6,19 +6,30 @@ This is a [Dagster](https://dagster.io/) project which contains data pipelines f
 
 Make sure you have Python 3.11 installed.
 
-First, install your Dagster code location as a Python package. By using the --editable flag, pip will install your Python package in ["editable mode"](https://pip.pypa.io/en/latest/topics/local-project-installs/#editable-installs) so that as you develop, local code changes will automatically apply.
+Install your Dagster code location as a Python package. By using the --editable flag, pip will install your Python package in ["editable mode"](https://pip.pypa.io/en/latest/topics/local-project-installs/#editable-installs) so that as you develop, local code changes will automatically apply.
 
 ```bash
 pip install -e ".[dev]"
 ```
 
-Then, start the Dagster UI web server:
+### API
+
+To use the Schiphol Flights API you need to create an account and request API access. You will receive an app ID and an app key. Create a `.env` file in the root of this project (where `pyproject.toml` resides) and add them with the following names:
+
+```bash
+schiphol_api_app_id = '%YOUR_API_APP_ID%'
+schiphol_api_app_key = '%YOUR_API_APP_KEY%'
+```
+
+### Running the code
+
+Start the Dagster UI web server:
 
 ```bash
 dagster dev
 ```
 
-Open <http://localhost:3000> with your browser to see the project.
+Open <http://localhost:3000> with your browser to see the project. To run all code go to Assets, select all assets and then press "Materialize selected". After the code runs you should see a DuckDB file called `db.duck` and 2 HTML files with pie charts have been created.
 
 ## Development
 
