@@ -59,24 +59,8 @@ def get_aircrafttypes():
 
 
 def get_destinations() -> pd.DataFrame:
-    df = get_df_from_api('destinations')
-
-    # df['englishName'] = df['publicName'].apply(lambda x: x['english'])
-    # df['dutchName'] = df['publicName'].apply(lambda x: x['dutch'])
-    # df = df.drop(columns='publicName')
-
-    return df
+    return get_df_from_api('destinations')
 
 
 def get_flights():
-    df = get_df_from_api('flights')
-    # df = df[['flightName', 'gate', 'prefixIATA', 'aircraftType', 'route']]
-
-    # df['aircraftTypeMain'] = df['aircraftType'].apply(lambda x: x['iataMain'])
-    # df['aircraftTypeSub'] = df['aircraftType'].apply(lambda x: x['iataSub'])
-    # df = df.drop(columns='aircraftType')
-
-    # df['destination'] = df['route'].apply(lambda x: x['destinations'][-1])
-    # df = df.drop(columns='route')
-
-    return df
+    return get_df_from_api('flights')
